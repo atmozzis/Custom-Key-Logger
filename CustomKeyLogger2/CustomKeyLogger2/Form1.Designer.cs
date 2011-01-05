@@ -40,6 +40,8 @@
             this.btnSaveKeyWord = new System.Windows.Forms.Button();
             this.txtKeyWord = new System.Windows.Forms.TextBox();
             this.btnHide = new System.Windows.Forms.Button();
+            this.btnEmail = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -97,7 +99,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnSvScrtWrd);
             this.groupBox1.Controls.Add(this.txtScrtWrd);
-            this.groupBox1.Location = new System.Drawing.Point(12, 70);
+            this.groupBox1.Location = new System.Drawing.Point(12, 99);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 54);
             this.groupBox1.TabIndex = 5;
@@ -121,14 +123,14 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(211, 172);
+            this.txtLog.Size = new System.Drawing.Size(211, 201);
             this.txtLog.TabIndex = 5;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnSaveKeyWord);
             this.groupBox2.Controls.Add(this.txtKeyWord);
-            this.groupBox2.Location = new System.Drawing.Point(12, 130);
+            this.groupBox2.Location = new System.Drawing.Point(12, 159);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(178, 54);
             this.groupBox2.TabIndex = 6;
@@ -154,25 +156,47 @@
             // 
             // btnHide
             // 
-            this.btnHide.Location = new System.Drawing.Point(12, 190);
+            this.btnHide.Location = new System.Drawing.Point(12, 219);
             this.btnHide.Name = "btnHide";
-            this.btnHide.Size = new System.Drawing.Size(28, 23);
+            this.btnHide.Size = new System.Drawing.Size(46, 23);
             this.btnHide.TabIndex = 7;
-            this.btnHide.Text = "X";
+            this.btnHide.Text = "Hide";
             this.btnHide.UseVisualStyleBackColor = true;
             this.btnHide.Click += new System.EventHandler(this.btnHide_Click);
+            // 
+            // btnEmail
+            // 
+            this.btnEmail.Location = new System.Drawing.Point(12, 70);
+            this.btnEmail.Name = "btnEmail";
+            this.btnEmail.Size = new System.Drawing.Size(75, 23);
+            this.btnEmail.TabIndex = 3;
+            this.btnEmail.Text = "Email";
+            this.btnEmail.UseVisualStyleBackColor = true;
+            this.btnEmail.Click += new System.EventHandler(this.btnEmail_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(379, 219);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(28, 23);
+            this.btnExit.TabIndex = 8;
+            this.btnExit.Text = "X";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 216);
+            this.ClientSize = new System.Drawing.Size(419, 250);
             this.ControlBox = false;
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnHide);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.btnWrtTFl);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
@@ -180,6 +204,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -204,6 +229,8 @@
         private System.Windows.Forms.Button btnSaveKeyWord;
         private System.Windows.Forms.TextBox txtKeyWord;
         private System.Windows.Forms.Button btnHide;
+        private System.Windows.Forms.Button btnEmail;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 

