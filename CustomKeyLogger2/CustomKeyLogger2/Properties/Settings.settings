@@ -5,13 +5,13 @@
     <Setting Name="AutoStart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SecretWord" Type="System.String" Scope="User">
+      <Value Profile="(Default)">35305053530505</Value>
+    </Setting>
     <Setting Name="GMail" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PW" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="SecretWord" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

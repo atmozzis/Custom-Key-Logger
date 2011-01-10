@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CustomKeyLogger2")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
+[assembly: AssemblyProduct("Typing For Fun")]
+[assembly: AssemblyCopyright("Use at Your Own Risk! Publisher Holds No Responsibility!")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

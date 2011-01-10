@@ -16,13 +16,19 @@ C:\Documents and Settings\moeaun\my documents\visual studio 2010\Projects\Custom
 C:\Documents and Settings\moeaun\my documents\visual studio 2010\Projects\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\CustomKeyLogger2.Properties.Resources.resources
 C:\Documents and Settings\moeaun\my documents\visual studio 2010\Projects\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Documents and Settings\moeaun\my documents\visual studio 2010\Projects\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\CustomKeyLogger2.exe
-C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\CustomKeyLogger2.pdb
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\CustomKeyLogger2.Form1.resources
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\CustomKeyLogger2.Properties.Resources.resources
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\CustomKeyLogger2.exe
-C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\CustomKeyLogger2.pdb
-C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\CustomKeyLogger2.exe.config
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\Typing For Fun.exe.config
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\Typing For Fun.exe.manifest
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\Typing For Fun.application
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\Typing For Fun.exe
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\Typing For Fun.pdb
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Typing For Fun.exe.manifest
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Typing For Fun.application
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Typing For Fun.exe
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Typing For Fun.pdb

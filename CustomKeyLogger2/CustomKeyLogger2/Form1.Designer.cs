@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.txtScrtWrd = new System.Windows.Forms.TextBox();
@@ -48,6 +49,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnSaveEmail = new System.Windows.Forms.Button();
             this.lblMailStatus = new System.Windows.Forms.Label();
+            this.timUnHide = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -95,7 +97,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnSvScrtWrd);
             this.groupBox1.Controls.Add(this.txtScrtWrd);
-            this.groupBox1.Location = new System.Drawing.Point(12, 70);
+            this.groupBox1.Location = new System.Drawing.Point(4, 195);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 54);
             this.groupBox1.TabIndex = 5;
@@ -119,19 +121,21 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(211, 281);
+            this.txtLog.Size = new System.Drawing.Size(211, 237);
             this.txtLog.TabIndex = 5;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnSaveKeyWord);
             this.groupBox2.Controls.Add(this.txtKeyWord);
-            this.groupBox2.Location = new System.Drawing.Point(12, 130);
+            this.groupBox2.Enabled = false;
+            this.groupBox2.Location = new System.Drawing.Point(4, 255);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(178, 54);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Key Word";
+            this.groupBox2.Visible = false;
             // 
             // btnSaveKeyWord
             // 
@@ -152,7 +156,8 @@
             // 
             // btnHide
             // 
-            this.btnHide.Location = new System.Drawing.Point(12, 299);
+            this.btnHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnHide.Location = new System.Drawing.Point(12, 254);
             this.btnHide.Name = "btnHide";
             this.btnHide.Size = new System.Drawing.Size(46, 23);
             this.btnHide.TabIndex = 7;
@@ -162,7 +167,7 @@
             // 
             // btnEmail
             // 
-            this.btnEmail.Location = new System.Drawing.Point(18, 41);
+            this.btnEmail.Location = new System.Drawing.Point(16, 71);
             this.btnEmail.Name = "btnEmail";
             this.btnEmail.Size = new System.Drawing.Size(75, 23);
             this.btnEmail.TabIndex = 3;
@@ -172,7 +177,8 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(379, 299);
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExit.Location = new System.Drawing.Point(379, 254);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(28, 23);
             this.btnExit.TabIndex = 8;
@@ -215,14 +221,16 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblMailStatus);
             this.groupBox3.Controls.Add(this.btnSaveEmail);
             this.groupBox3.Controls.Add(this.txtPassWord);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.txtEmail);
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Location = new System.Drawing.Point(12, 190);
+            this.groupBox3.Controls.Add(this.btnEmail);
+            this.groupBox3.Location = new System.Drawing.Point(4, 70);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(178, 103);
+            this.groupBox3.Size = new System.Drawing.Size(178, 119);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Email";
@@ -240,18 +248,24 @@
             // lblMailStatus
             // 
             this.lblMailStatus.AutoSize = true;
-            this.lblMailStatus.Location = new System.Drawing.Point(64, 304);
+            this.lblMailStatus.Location = new System.Drawing.Point(13, 97);
             this.lblMailStatus.Name = "lblMailStatus";
-            this.lblMailStatus.Size = new System.Drawing.Size(0, 13);
+            this.lblMailStatus.Size = new System.Drawing.Size(59, 13);
             this.lblMailStatus.TabIndex = 16;
+            this.lblMailStatus.Text = "Mail Status";
+            // 
+            // timUnHide
+            // 
+            this.timUnHide.Enabled = true;
+            this.timUnHide.Interval = 60000;
+            this.timUnHide.Tick += new System.EventHandler(this.timUnHide_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 328);
+            this.ClientSize = new System.Drawing.Size(419, 283);
             this.ControlBox = false;
-            this.Controls.Add(this.lblMailStatus);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnHide);
@@ -259,7 +273,6 @@
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnEmail);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -302,6 +315,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnSaveEmail;
         private System.Windows.Forms.Label lblMailStatus;
+        private System.Windows.Forms.Timer timUnHide;
     }
 }
 
