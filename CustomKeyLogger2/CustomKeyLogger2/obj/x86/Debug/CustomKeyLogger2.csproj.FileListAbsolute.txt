@@ -32,3 +32,6 @@ C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLog
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Typing For Fun.application
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Typing For Fun.exe
 C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Typing For Fun.pdb
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\bin\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Documents and Settings\moeaun\Custom-Key-Logger\CustomKeyLogger2\CustomKeyLogger2\obj\x86\Debug\CustomKeyLogger2.csproj.ResolveComReference.cache

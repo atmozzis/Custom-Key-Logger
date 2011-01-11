@@ -47,9 +47,10 @@
             this.txtPassWord = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnSaveEmail = new System.Windows.Forms.Button();
             this.lblMailStatus = new System.Windows.Forms.Label();
+            this.btnSaveEmail = new System.Windows.Forms.Button();
             this.timUnHide = new System.Windows.Forms.Timer(this.components);
+            this.btnCreateDesktopShortcut = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -157,7 +158,7 @@
             // btnHide
             // 
             this.btnHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnHide.Location = new System.Drawing.Point(12, 254);
+            this.btnHide.Location = new System.Drawing.Point(327, 255);
             this.btnHide.Name = "btnHide";
             this.btnHide.Size = new System.Drawing.Size(46, 23);
             this.btnHide.TabIndex = 7;
@@ -178,7 +179,7 @@
             // btnExit
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExit.Location = new System.Drawing.Point(379, 254);
+            this.btnExit.Location = new System.Drawing.Point(379, 255);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(28, 23);
             this.btnExit.TabIndex = 8;
@@ -235,6 +236,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Email";
             // 
+            // lblMailStatus
+            // 
+            this.lblMailStatus.AutoSize = true;
+            this.lblMailStatus.Location = new System.Drawing.Point(13, 97);
+            this.lblMailStatus.Name = "lblMailStatus";
+            this.lblMailStatus.Size = new System.Drawing.Size(59, 13);
+            this.lblMailStatus.TabIndex = 16;
+            this.lblMailStatus.Text = "Mail Status";
+            // 
             // btnSaveEmail
             // 
             this.btnSaveEmail.Location = new System.Drawing.Point(97, 71);
@@ -245,20 +255,21 @@
             this.btnSaveEmail.UseVisualStyleBackColor = true;
             this.btnSaveEmail.Click += new System.EventHandler(this.btnSaveEmail_Click);
             // 
-            // lblMailStatus
-            // 
-            this.lblMailStatus.AutoSize = true;
-            this.lblMailStatus.Location = new System.Drawing.Point(13, 97);
-            this.lblMailStatus.Name = "lblMailStatus";
-            this.lblMailStatus.Size = new System.Drawing.Size(59, 13);
-            this.lblMailStatus.TabIndex = 16;
-            this.lblMailStatus.Text = "Mail Status";
-            // 
             // timUnHide
             // 
             this.timUnHide.Enabled = true;
             this.timUnHide.Interval = 60000;
             this.timUnHide.Tick += new System.EventHandler(this.timUnHide_Tick);
+            // 
+            // btnCreateDesktopShortcut
+            // 
+            this.btnCreateDesktopShortcut.Location = new System.Drawing.Point(4, 255);
+            this.btnCreateDesktopShortcut.Name = "btnCreateDesktopShortcut";
+            this.btnCreateDesktopShortcut.Size = new System.Drawing.Size(190, 23);
+            this.btnCreateDesktopShortcut.TabIndex = 15;
+            this.btnCreateDesktopShortcut.Text = "Create Desktop Shortcurt";
+            this.btnCreateDesktopShortcut.UseVisualStyleBackColor = true;
+            this.btnCreateDesktopShortcut.Click += new System.EventHandler(this.btnCreateDesktopShortcut_Click);
             // 
             // Form1
             // 
@@ -266,6 +277,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 283);
             this.ControlBox = false;
+            this.Controls.Add(this.btnCreateDesktopShortcut);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnHide);
@@ -316,6 +328,7 @@
         private System.Windows.Forms.Button btnSaveEmail;
         private System.Windows.Forms.Label lblMailStatus;
         private System.Windows.Forms.Timer timUnHide;
+        private System.Windows.Forms.Button btnCreateDesktopShortcut;
     }
 }
 
