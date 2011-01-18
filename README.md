@@ -24,7 +24,7 @@ http://github.com/aungthumoe5/Custom-Key-Logger/
   
 =======Downloads=======  
   
-Zip Installer: [Download](https://github.com/downloads/aungthumoe5/Custom-Key-Logger/Installer%20-%20Custom-Key-Logger.zip)  
+Zip Installer: [Download](https://github.com/downloads/aungthumoe5/Custom-Key-Logger/Installer%20-%20CustomKeyLogger2.zip)  
   
-7z  Installer: [Download](https://github.com/downloads/aungthumoe5/Custom-Key-Logger/Installer%20-%20Custom-Key-Logger.7z)  
+7z  Installer: [Download](https://github.com/downloads/aungthumoe5/Custom-Key-Logger/Installer%20-%20CustomKeyLogger2.zip)  
   
