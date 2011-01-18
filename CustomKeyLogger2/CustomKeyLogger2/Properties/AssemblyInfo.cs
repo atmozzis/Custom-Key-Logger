@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CustomKeyLogger2")]
-[assembly: AssemblyDescription("Custom eyLogger2")]
+[assembly: AssemblyDescription("CustomKeyLogger2")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Typing For Fun")]
+[assembly: AssemblyCompany("Use at Your Own Risk! Publisher Holds No Responsibility!")]
+[assembly: AssemblyProduct("CustomKeyLogger2")]
 [assembly: AssemblyCopyright("Use at Your Own Risk! Publisher Holds No Responsibility!")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Use at Your Own Risk! Publisher Holds No Responsibility!")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

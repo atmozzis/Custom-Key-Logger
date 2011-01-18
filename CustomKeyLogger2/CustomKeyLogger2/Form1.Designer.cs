@@ -258,7 +258,7 @@
             // timUnHide
             // 
             this.timUnHide.Enabled = true;
-            this.timUnHide.Interval = 60000;
+            this.timUnHide.Interval = 15000;
             this.timUnHide.Tick += new System.EventHandler(this.timUnHide_Tick);
             // 
             // btnCreateDesktopShortcut
@@ -291,6 +291,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
