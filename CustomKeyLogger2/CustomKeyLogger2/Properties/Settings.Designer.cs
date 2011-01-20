@@ -70,5 +70,17 @@ namespace CustomKeyLogger2.Properties {
                 this["PW"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Admin {
+            get {
+                return ((string)(this["Admin"]));
+            }
+            set {
+                this["Admin"] = value;
+            }
+        }
     }
 }

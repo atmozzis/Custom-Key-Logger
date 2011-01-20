@@ -19,9 +19,6 @@
             <setting name="PW" serializeAs="String">
                 <value />
             </setting>
-            <setting name="Admin" serializeAs="String">
-                <value />
-            </setting>
         </CustomKeyLogger2.Properties.Settings>
     </userSettings>
 </configuration>

@@ -51,6 +51,7 @@
             this.btnSaveEmail = new System.Windows.Forms.Button();
             this.timUnHide = new System.Windows.Forms.Timer(this.components);
             this.btnCreateDesktopShortcut = new System.Windows.Forms.Button();
+            this.btnAdmin = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -271,12 +272,23 @@
             this.btnCreateDesktopShortcut.UseVisualStyleBackColor = true;
             this.btnCreateDesktopShortcut.Click += new System.EventHandler(this.btnCreateDesktopShortcut_Click);
             // 
+            // btnAdmin
+            // 
+            this.btnAdmin.Location = new System.Drawing.Point(18, 41);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Size = new System.Drawing.Size(75, 23);
+            this.btnAdmin.TabIndex = 16;
+            this.btnAdmin.Text = "Reset Admin";
+            this.btnAdmin.UseVisualStyleBackColor = true;
+            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 283);
             this.ControlBox = false;
+            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.btnCreateDesktopShortcut);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnExit);
@@ -331,6 +343,7 @@
         private System.Windows.Forms.Label lblMailStatus;
         private System.Windows.Forms.Timer timUnHide;
         private System.Windows.Forms.Button btnCreateDesktopShortcut;
+        private System.Windows.Forms.Button btnAdmin;
     }
 }
 
