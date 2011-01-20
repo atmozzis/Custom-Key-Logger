@@ -660,7 +660,9 @@ namespace CustomKeyLogger2
         private void btnAdmin_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Admin = "";
+            Properties.Settings.Default.AutoStart = false;
             Save();
+            Application.Restart();
         }
 
         private void Save()
