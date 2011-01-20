@@ -25,9 +25,3 @@ CustomKeyLogger2 is a small program that, once installed, it will start logging 
   
 http://github.com/aungthumoe5/Custom-Key-Logger/  
   
-=======Downloads=======  
-  
-Zip Installer: [Download](https://github.com/downloads/aungthumoe5/Custom-Key-Logger/Installer%20CustomKeyLogger2.zip)  
-  
-7z  Installer: [Download](https://github.com/downloads/aungthumoe5/Custom-Key-Logger/Installer%20-%20CustomKeyLogger2.7z)  
-  
